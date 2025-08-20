@@ -1,0 +1,125 @@
+:root {
+  --primary-blue: #007BFF;
+  --button-bg: #ffffff;
+  --button-text: #000000;
+  --font-primary: system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  font-family: var(--font-primary);
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Layout */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--primary-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  text-align: center;
+}
+.file-input {
+  display: block;
+  margin: 1rem auto; /* Center horizontally */
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  width: 220px;
+  text-align: center;
+}
+.file-input::file-selector-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  color: var(--button-text);
+}
+
+/* Header */
+h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 2rem 0;
+}
+
+/* Button Section */
+.button-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Reusable button style */
+button,
+select,
+.download-button {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  min-width: 300px;
+}
+
+button:hover,
+.download-button:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+  border-color: #dddddd;
+}
+
+select {
+  appearance: none;
+}
+
+/* DOCUMENT READY text */
+.doc-text {
+  color: #000000;
+  text-decoration: underline;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+/* Download link styled like a button */
+.download-button {
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+  h1 {
+    font-size: .8rem;
+  }
+
+  button,
+  select,
+  .download-button {
+    width: 80vw;
+  }
+}
