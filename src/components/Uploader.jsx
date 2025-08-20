@@ -24,6 +24,7 @@ const Uploader = ({ setDocUrl, setIsLoading }) => {
     setLoadingText("Converting...");
 
     try {
+      // Mobile-safe upload
       const result = await uploadFile(file, lang);
       console.log("Backend Result:", result);
 
@@ -33,10 +34,10 @@ const Uploader = ({ setDocUrl, setIsLoading }) => {
         alert("No DOCX URL returned.");
       }
     } catch (err) {
-  const msg = err?.response?.data?.error || "Upload failed. Try again.";
-  alert(msg);
-  console.error(err);
-} finally {
+      const msg = err?.response?.data?.error || "Upload failed. Try again.";
+      alert(msg);
+      console.error(err);
+    } finally {
       setIsLoading(false);
       setLoadingText("");
     }
@@ -62,7 +63,7 @@ const Uploader = ({ setDocUrl, setIsLoading }) => {
       />
 
       {/* Buttons */}
-      <div style={{ display: "grid", gap: "30px", marginBottom: "10px" }}>
+      <div style={{ display: "grid", gap: "20px", marginBottom: "10px" }}>
         <button onClick={() => fileInputRef.current.click()}>
           📁 {fileName || "Choose from Device"}
         </button>
@@ -73,7 +74,9 @@ const Uploader = ({ setDocUrl, setIsLoading }) => {
 
       {/* Loading Text */}
       {loadingText && (
-        <p style={{ fontStyle: "italic", color: "Black" ,fontSize:"large"}}>{loadingText}</p>
+        <p style={{ fontStyle: "italic", color: "Black", fontSize: "large" }}>
+          {loadingText}
+        </p>
       )}
 
       {/* Language Select */}

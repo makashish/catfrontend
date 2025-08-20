@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">catdoc</string>
+    <string name="title_activity_main">catdoc</string>
+    <string name="package_name">com.ashish.catdoc</string>
+    <string name="custom_url_scheme">com.ashish.catdoc</string>
+</resources>
