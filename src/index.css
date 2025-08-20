@@ -114,7 +114,7 @@ select {
 /* Responsive layout */
 @media (max-width: 600px) {
   h1 {
-    font-size: .8rem;
+    font-size: 1.5rem;
   }
 
   button,

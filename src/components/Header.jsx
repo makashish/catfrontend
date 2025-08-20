@@ -6,7 +6,7 @@ const Header = () => {
     <header className="bg-blue-600 text-white shadow-md py-4 px-4 flex items-center justify-between">
       <div className="grid items-center space-x-3 y-3">
         <img src={logo} alt="Logo" className="w-16 h-16 rounded-full image-float" />
-        <h1 className="text-small font-bold ">Click Image/Upload PDF Of Any Language to Make Document</h1>
+        <h1 className="text-small font-bold ">Click Image/Upload PDF Of Any <br/>Language to Make Document</h1>
       </div>
       {/* Add nav or profile links here if needed */}
     </header>

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { uploadFile } from "../services/api";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 const Uploader = ({ setDocUrl, setIsLoading }) => {
   const [file, setFile] = useState(null);
@@ -8,13 +9,34 @@ const Uploader = ({ setDocUrl, setIsLoading }) => {
   const [loadingText, setLoadingText] = useState("");
 
   const fileInputRef = useRef(null);
-  const cameraInputRef = useRef(null);
 
+  // Web file select
   const handleFileChange = (e) => {
     const selected = e.target.files[0];
     if (selected) {
       setFile(selected);
       setFileName(selected.name);
+    }
+  };
+
+  // Mobile / Capacitor camera or gallery
+  const pickImage = async (source) => {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Uri,
+        source: source === "camera" ? CameraSource.Camera : CameraSource.Photos,
+      });
+
+      const response = await fetch(image.webPath);
+      const blob = await response.blob();
+      const selectedFile = new File([blob], "photo.jpg", { type: blob.type });
+
+      setFile(selectedFile);
+      setFileName(selectedFile.name);
+    } catch (err) {
+      console.error("Image pick failed:", err);
     }
   };
 
@@ -24,10 +46,7 @@ const Uploader = ({ setDocUrl, setIsLoading }) => {
     setLoadingText("Converting...");
 
     try {
-      // Mobile-safe upload
       const result = await uploadFile(file, lang);
-      console.log("Backend Result:", result);
-
       if (result?.docx_url) {
         setDocUrl(result.docx_url);
       } else {
@@ -45,7 +64,7 @@ const Uploader = ({ setDocUrl, setIsLoading }) => {
 
   return (
     <div className="button-section">
-      {/* Hidden Inputs */}
+      {/* Hidden web file input */}
       <input
         type="file"
         accept="image/*,application/pdf"
@@ -53,22 +72,22 @@ const Uploader = ({ setDocUrl, setIsLoading }) => {
         style={{ display: "none" }}
         onChange={handleFileChange}
       />
-      <input
-        type="file"
-        accept="image/*"
-        capture="environment"
-        ref={cameraInputRef}
-        style={{ display: "none" }}
-        onChange={handleFileChange}
-      />
 
       {/* Buttons */}
       <div style={{ display: "grid", gap: "20px", marginBottom: "10px" }}>
+        {/* Web / Gallery */}
         <button onClick={() => fileInputRef.current.click()}>
           📁 {fileName || "Choose from Device"}
         </button>
-        <button onClick={() => cameraInputRef.current.click()}>
+
+        {/* Mobile / Camera */}
+        <button onClick={() => pickImage("camera")}>
           📷 {fileName || "Upload by Camera"}
+        </button>
+
+        {/* Mobile / Gallery via Capacitor */}
+        <button onClick={() => pickImage("gallery")}>
+          🖼️ {fileName || "Pick from Gallery"}
         </button>
       </div>
 
