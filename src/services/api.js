@@ -4,7 +4,7 @@ let BASE_URL = "";
 
 const loadConfig = async () => {
   if (!BASE_URL) {
-    const res = await fetch(`${import.meta.env.BASE_URL}quiz-time.json`);
+    const res = await fetch(`${import.meta.env.BASE_URL}config.json`);
     const config = await res.json();
     BASE_URL = config.API_BASE_URL;
   }
